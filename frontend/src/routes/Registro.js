@@ -1,6 +1,8 @@
-import React, {useEffect, useState} from 'react'
-import {Button, Container,Row,Col,Form,Table } from 'react-bootstrap'
+import React, {useState} from 'react'
+import {Button, Container,Row,Col,Form} from 'react-bootstrap'
 import axios from "axios";
+import AuthInput from '../components/rutCheck';
+import {Link} from 'react-router-dom';
 
 
 const instance = axios.create({
@@ -8,14 +10,12 @@ const instance = axios.create({
   });
 
 function Registro(){
-    const [name,setName]=useState("");
     const [rut,setRut]=useState("");
     const [pass,setPass]=useState("");
     const [resultados,setResultados] = useState([])
-
-    const handleName = (e) => {
-        setName(e.target.value)
-    }
+    
+    
+    
     const handleRut = (e) => {
         setRut(e.target.value)
     }
@@ -25,86 +25,51 @@ function Registro(){
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            await instance.post("auth/registro",{
+            const respuesta=await instance.post("auth/registro/check",{
                 rut:rut,
-                password:pass,
-                nombre:name,
-                idCurso:1,
-            })
+            });
+            setResultados(respuesta.data)
+            if(!resultados.registrado){
+                try {
+                    await instance.post("auth/registro",{
+                        rut:rut,
+                        password:pass
+                    })
+                } catch (error) {
+                    console.log(error)
+                    
+                }
+            }
         } catch (error) {
-            console.log("hola")
+            console.log(error)
         }
 
     }
-    useEffect(() => {
-        const fetchData = async () =>{
-            try {
-                const response = await instance.get("registro/")
-                setResultados(response.data)
-                
-                
-            } catch (error) {}
-
-        };
-        fetchData();
-        
-    },[]);
 
     return (
         <div>
             
             <Container>
                 <Row>
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Rut</th>
-                            
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {resultados.map(usuario => {
-                                return(
-                                <tr key={usuario.id}>
-                                    <td>{usuario.id}</td>
-                                    <td>{usuario.nombre}</td>
-                                    <td>{usuario.rut}</td>
-
-                                </tr>
-                                )
-                            })}
-                            
-                            
-                         
-                        </tbody>
-                    </Table>
+                   
                 </Row>
                 <Row>
                     <Col>
     
                 <Form>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Label>Nombre</Form.Label>
-                        <Form.Control onChange={handleName} />
-                        
-                    </Form.Group>
+                    
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Rut</Form.Label>
                         <Form.Control onChange={handleRut} />
                     </Form.Group>
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Contraseña</Form.Label>
-                        <Form.Control onChange={handlePass} />
-                    </Form.Group>
+                    <AuthInput registrado={resultados.registrado} change={handlePass}/>
+                    
                     <Button onClick={handleSubmit} variant="primary" type="submit">
                         Submit
                     </Button>
-                    <Button href="/login" variant="primary" type="submit">
-                        Login
-                    </Button>
+                    <Link to="/login">Ya esta registrado?</Link>
+                    
                 </Form>
                 </Col>
                 </Row>

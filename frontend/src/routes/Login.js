@@ -41,10 +41,6 @@ function Login(){
                     dispatch(login(data.data.rut,data.data.nombre,data.data.id,selected));
                     localStorage.setItem('token', data.data.token);
                     history.push("/home");
-                    
-                    
-                
-                    
                 })
                 
             } catch (error) {

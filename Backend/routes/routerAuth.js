@@ -10,15 +10,31 @@ router.post("/registro", async(req,res) => {
                 rut: req.body.rut,
             },
         });
-        if(rutValid) return res.status(400).send("rut ya existe");
+        if(!rutValid) return res.status(400).send("rut no existe en la bd");
+        if(rutValid.registrado===true) return res.status(400).send("usuario ya registrado");
         const salt = await bcrypt.genSalt(8);
         const hashPass = await bcrypt.hash(req.body.password,salt);
-        const user= await Estudiante.create({
+        const user= await Estudiante.update({registrado:true, password:hashPass},{
+            where:{
             rut:req.body.rut,
-            nombre:req.body.nombre,
-            password: hashPass
-        })
+        }})
         return res.send(user);
+    } 
+    catch (error) {
+        
+        
+    }
+});
+router.post("/registro/check", async(req,res) => {
+    try {
+        const rutValid = await Estudiante.findOne({
+            where: {
+                rut: req.body.rut,
+            },
+        });
+        if(!rutValid) return res.status(400).send("usuario no existe en bd");
+        if(rutValid.registrado===true) return res.status(400).send("usuario ya registrado");
+        return res.send(rutValid);
     } 
     catch (error) {
         
