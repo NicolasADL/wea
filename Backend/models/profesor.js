@@ -20,9 +20,10 @@ module.exports = (sequelize, DataTypes) => {
   Profesor.init({
     rut: DataTypes.STRING,
     nombre: DataTypes.STRING,
-    contraseña: DataTypes.STRING,
+    password: DataTypes.STRING,
     idAsignatura: DataTypes.INTEGER,
     jefe: DataTypes.BOOLEAN,
+    registrado: DataTypes.BOOLEAN,
     idCurso: DataTypes.INTEGER
   }, {
     sequelize,

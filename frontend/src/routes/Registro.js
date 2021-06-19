@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Button, Container,Row,Col,Form} from 'react-bootstrap'
+import {Button, Container,Row,Col,Form,InputGroup,Dropdown,DropdownButton} from 'react-bootstrap'
 import axios from "axios";
 import AuthInput from '../components/rutCheck';
 import {Link} from 'react-router-dom';
@@ -13,8 +13,11 @@ function Registro(){
     const [rut,setRut]=useState("");
     const [pass,setPass]=useState("");
     const [resultados,setResultados] = useState([])
+    const [selected,setSelected]=useState('Usuario')
     
-    
+    const handleSelect = (e) =>{
+        setSelected(e)
+    }
     
     const handleRut = (e) => {
         setRut(e.target.value)
@@ -24,26 +27,72 @@ function Registro(){
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        try {
-            const respuesta=await instance.post("auth/registro/check",{
-                rut:rut,
-            });
-            setResultados(respuesta.data)
-            if(!resultados.registrado){
+        switch(selected){
+            case "Estudiante":
                 try {
-                    await instance.post("auth/registro",{
+                    const respuesta=await instance.post("auth/registro/check/estudiante",{
                         rut:rut,
-                        password:pass
-                    })
+                    });
+                    setResultados(respuesta.data)
+                    if(resultados.registrado===false){
+                        try {
+                            await instance.post("auth/registro/estudiante",{
+                                rut:rut,
+                                password:pass
+                            })
+                        } catch (error) {
+                            console.log(error)
+                            
+                        }
+                    }
                 } catch (error) {
                     console.log(error)
-                    
                 }
-            }
-        } catch (error) {
-            console.log(error)
+                break
+            case "Apoderado":
+                try {
+                    const respuesta=await instance.post("auth/registro/check/apoderado",{
+                        rut:rut,
+                    });
+                    setResultados(respuesta.data)
+                    if(resultados.registrado===false){
+                        try {
+                            await instance.post("auth/registro/apoderado",{
+                                rut:rut,
+                                password:pass
+                            })
+                        } catch (error) {
+                            console.log(error)
+                            
+                        }
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+                break
+            case "Profesor":
+                
+                try {
+                    const respuesta=await instance.post("auth/registro/check/profesor",{
+                        rut:rut,
+                    });
+                    setResultados(respuesta.data)
+                    if(resultados.registrado===false){
+                        try {
+                            await instance.post("auth/registro/profesor",{
+                                rut:rut,
+                                password:pass
+                            })
+                        } catch (error) {
+                            console.log(error)
+                            
+                        }
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+                break
         }
-
     }
 
     return (
@@ -61,7 +110,22 @@ function Registro(){
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Rut</Form.Label>
-                        <Form.Control onChange={handleRut} />
+                        <InputGroup className="mb-3">
+                            <Form.Control onChange={handleRut} />
+                            <DropdownButton
+                            as={InputGroup.Append}
+                            variant="outline-secondary"
+                            title={selected}
+                            id="input-group-dropdown-1"
+                            onSelect={handleSelect}
+                            >
+                            <Dropdown.Item eventKey="Estudiante">Estudiante</Dropdown.Item>
+                            <Dropdown.Item eventKey="Profesor">Profesor</Dropdown.Item>
+                            <Dropdown.Item eventKey="Apoderado">Apoderado</Dropdown.Item>
+                            </DropdownButton>
+                            
+                        </InputGroup>
+                        
                     </Form.Group>
                     <AuthInput registrado={resultados.registrado} change={handlePass}/>
                     

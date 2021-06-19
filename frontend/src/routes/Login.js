@@ -30,29 +30,55 @@ function Login(){
     const handleSubmit = async (e) => {
         e.preventDefault()
         
+        switch(selected){
+            case "Estudiante":
+                try {
+                    await instance.post("auth/login/estudiante",{
+                        rut :rut,
+                        password: pass
+                    }).then((data)=> {
+                        dispatch(login(data.data.rut,data.data.nombre,data.data.id,selected));
+                        localStorage.setItem('token', data.data.token);
+                        history.push("/home");
+                    })
+                    
+                } catch (error) {
+                    
+                }
+                break;
+            case "Apoderado":
+                try {
+                    await instance.post("auth/login/apoderado",{
+                        rut :rut,
+                        password: pass
+                    }).then((data)=> {
+                        dispatch(login(data.data.rut,data.data.nombre,data.data.id,selected));
+                        localStorage.setItem('token', data.data.token);
+                        history.push("/home");
+                    })
+                    
+                } catch (error) {
+                    
+                }
+                break;
+            case "Profesor":
+                
+                try {
+                    await instance.post("auth/login/profesor",{
+                        rut :rut,
+                        password: pass
+                    }).then((data)=> {
+                        dispatch(login(data.data.rut,data.data.nombre,data.data.id,selected));
+                        localStorage.setItem('token', data.data.token);
+                        history.push("/home");
+                    })
+    
+                } catch (error) {
 
-        if(selected==="Estudiante"){
-        
-            try {
-                await instance.post("auth/login",{
-                    rut :rut,
-                    password: pass
-                }).then((data)=> {
-                    dispatch(login(data.data.rut,data.data.nombre,data.data.id,selected));
-                    localStorage.setItem('token', data.data.token);
-                    history.push("/home");
-                })
-                
-            } catch (error) {
-                
-            }
-        }
-        else{
-            console.log("hola")
+                }
+                break;
         }
     }
-    
-
     return (
         <div>
             
