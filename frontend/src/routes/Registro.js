@@ -23,15 +23,16 @@ function Registro(){
         setPass(e.target.value)
     }
     const handleSubmit = async (e) => {
-        
+        e.preventDefault()
         try {
             await instance.post("auth/registro",{
-                name,
-                rut,
-                pass
+                rut:rut,
+                password:pass,
+                nombre:name,
+                idCurso:1,
             })
         } catch (error) {
-            
+            console.log("hola")
         }
 
     }
@@ -40,6 +41,8 @@ function Registro(){
             try {
                 const response = await instance.get("registro/")
                 setResultados(response.data)
+                
+                
             } catch (error) {}
 
         };
@@ -66,7 +69,7 @@ function Registro(){
                                 return(
                                 <tr key={usuario.id}>
                                     <td>{usuario.id}</td>
-                                    <td>{usuario.name}</td>
+                                    <td>{usuario.nombre}</td>
                                     <td>{usuario.rut}</td>
 
                                 </tr>

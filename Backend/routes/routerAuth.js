@@ -1,38 +1,39 @@
 const router=require("express").Router();
-const {User} = require("../models");
+const {Estudiante} = require("../models");
 const bcrypt = require("bcrypt");
 const jwt=require('jsonwebtoken');
 
 router.post("/registro", async(req,res) => {
     try {
-        const rutValid = await User.findOne({
+        const rutValid = await Estudiante.findOne({
             where: {
                 rut: req.body.rut,
             },
         });
         if(rutValid) return res.status(400).send("rut ya existe");
         const salt = await bcrypt.genSalt(8);
-        const hashPass = await bcrypt.hash(req.body.pass,salt);
-        const user= await User.create({
+        const hashPass = await bcrypt.hash(req.body.password,salt);
+        const user= await Estudiante.create({
             rut:req.body.rut,
-            name:req.body.name,
-            pass: hashPass
+            nombre:req.body.nombre,
+            password: hashPass
         })
         return res.send(user);
     } 
     catch (error) {
         
+        
     }
 });
 router.post("/login", async(req,res) => {
     try {
-        const rutValid = await User.findOne({
+        const rutValid = await Estudiante.findOne({
             where: {
                 rut: req.body.rut,
             },
         });
         if(!rutValid) return res.status(400).send("rut no valido");
-        const validPass = await bcrypt.compare(req.body.pass, rutValid.pass)
+        const validPass = await bcrypt.compare(req.body.password, rutValid.password)
         if(!validPass) return res.status(400).send("rut o pass no valido");
         const token = jwt.sign({id:rutValid.id},process.env.SECRET_TOKEN);
         return res.header("auth-token",token).send(rutValid);
