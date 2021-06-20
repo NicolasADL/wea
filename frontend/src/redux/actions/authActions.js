@@ -1,7 +1,7 @@
 export const ACTION_LOGIN = 'ACTION_LOGIN';
 export const ACTION_LOGOUT = 'ACTION_LOGOUT';
 
-export const login = (rut,name,id,tipo) => {
+export const login = (rut,name,id,tipo,idCurso) => {
 	return {
 		type: ACTION_LOGIN,
 		payload: {
@@ -9,7 +9,8 @@ export const login = (rut,name,id,tipo) => {
             Name : name,
             Rut : rut,
             ID : id,
-            tipo : tipo
+            tipo : tipo,
+            id_curso: idCurso
 
 		},
 	}

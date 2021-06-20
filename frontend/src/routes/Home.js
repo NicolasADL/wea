@@ -1,4 +1,4 @@
-import { Navbar,Nav,NavDropdown,Button,Container} from 'react-bootstrap';
+import { Navbar,Nav,Button,Container} from 'react-bootstrap';
 import React, { useState,useEffect } from 'react'
 import { useSelector,useDispatch } from 'react-redux';
 import { logout } from '../redux/actions/authActions';
@@ -10,6 +10,8 @@ function Home() {
     const id = useSelector((store) => store.authReducer.ID);
     const name = useSelector((store) => store.authReducer.Name);
     const tipo= useSelector((store) => store.authReducer.tipo);
+    const rut= useSelector((store) => store.authReducer.Rut);
+    const id_curso= useSelector((store) => store.authReducer.id_curso);
     const dispatch = useDispatch()
     const [resultados,setResultados] = useState([])
     const instance = axios.create({
@@ -20,14 +22,12 @@ function Home() {
     }
     useEffect(() => {
         const fetchData = async () =>{
-            console.log(id)
             try {
                 
-                const response = await instance.get("/estudiante",{
-                    id: id,
+                const response = await instance.post("/estudiante",{
+                        id:id_curso,                
                 });
                 setResultados(response.data)
-                console.log(resultados)
 
             } catch (error) {
                 console.log(error)
@@ -42,7 +42,7 @@ function Home() {
         <div>
         <Container fluid>
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="#home">Bienvenido {name} ({tipo})</Navbar.Brand>
+            <Navbar.Brand href="#home">Bienvenido {name} ({tipo})({resultados.grado} {resultados.letra})</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="mr-auto">

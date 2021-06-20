@@ -1,16 +1,17 @@
 const router=require("express").Router();
-const {Estudiante,Apoderado,Profesor} = require("../models");
+const {Estudiante,Apoderado,Profesor,Curso} = require("../models");
 
-router.get("/estudiante", async (req,res) => {
+router.post("/estudiante", async (req,res) => {
     try {
-        const datos = await Estudiante.findOne({
+        const datos = await Curso.findOne({
             where:{
                 id:req.body.id
             }
         });
         res.send(datos);
     } catch (error) {
-        res.status(400).send('Error query');
+        console.log(error)
+        res.status(400).send(error);
     }
 })
 
