@@ -77,6 +77,8 @@ function Login(){
 
                 }
                 break;
+            default:
+                break;
         }
     }
     return (

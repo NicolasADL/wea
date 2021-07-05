@@ -91,7 +91,9 @@ function Registro(){
                 } catch (error) {
                     console.log(error)
                 }
-                break
+                break;
+            default:
+                break;
         }
     }
 
