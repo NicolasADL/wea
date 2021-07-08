@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Estudiante.init({
-    rut: DataTypes.STRING,
+    rut: {
+        primaryKey:true,
+        type:DataTypes.STRING
+    },
     password: DataTypes.STRING,
     nombre: DataTypes.STRING,
     registrado: DataTypes.BOOLEAN,

@@ -7,19 +7,25 @@ function Admin() {
         baseURL: 'http://localhost:3000/admin'
       });
     const [selected,setSelected]=useState('Estudiante')
-    const [selected1,setSelected1]=useState('A')
+    const [selected1,setSelected1]=useState("A")
     const [selected2,setSelected2]=useState(1)
     const [cursos,setCursos]=useState([])
     const [asignaturas,setAsignaturas]=useState([])
     const [estudiantes,setEstudiantes]=useState([])
+    const [profesores,setProfesores]=useState([])
+    const [horarios,setHorarios]=useState([])
     const [rut,setRut]=useState("");
     const [pass,setPass]=useState(null);
     const [name,setName]=useState(null);
+    const [selectedBloque,setSelectedBloque]=useState();
+    const [selectedDia,setSelectedDia]=useState("");
     const [selectedCurso,setSelectedCurso]=useState(null);
     const [selectedRegistrado,setSelectedRegistrado]=useState(null);
     const [selectedJefe,setSelectedJefe]=useState(null);
     const [selectedAsignatura,setSelectedAsignatura]=useState(null);
+    const [selectedIdHora,setSelectedIdHora]=useState(null);
     const [selectedPupilo,setSelectedPupilo]=useState(null);
+    const [selectedProfesor,setSelectedProfesor]=useState(null);
     const handleSelect = (e) =>{
         setSelected(e)
     }
@@ -29,8 +35,21 @@ function Admin() {
     const handleSelect2 = (e) =>{
         setSelected2(e)
     }
+    const handleSelectIdHora = (e) =>{
+        setSelectedIdHora(e.target.value)
+    }
+
     const handleSelectAsignatura = (e) =>{
         setSelectedAsignatura(e.target.value)
+    }
+    const handleSelectBloque = (e) =>{
+        setSelectedBloque(e.target.value)
+    }
+    const handleSelectDia = (e) =>{
+        setSelectedDia(e.target.value)
+    }
+    const handleSelectProfesor = (e) =>{
+        setSelectedProfesor(e.target.value)
     }
     const handleSelectCurso = (e) =>{
         setSelectedCurso(e.target.value)
@@ -52,6 +71,15 @@ function Admin() {
     }
     const handlePass = (e) =>{
         setPass(e.target.value)
+    }
+    const handleDeleteHorario = async (e) =>{
+        try {
+            await instance.post("/horario/delete",{
+                id:selectedIdHora
+            })
+        } catch (error) {
+            
+        }
     }
     const handleDeleteCurso = async (e) =>{
         try {
@@ -131,8 +159,6 @@ function Admin() {
                     nombre:name,
                     password:pass,
                     registrado:selectedRegistrado,
-                    idCurso:selectedCurso,
-                    idAsignatura:selectedAsignatura,
                     jefe:selectedJefe
                 }
                 let p = Object.fromEntries(Object.entries(request).filter(([_, v]) => v != null));
@@ -169,8 +195,9 @@ function Admin() {
     const handleSubmitCurso = async (e) => {
                 try {
                     await instance.post("/curso",{
-                        grado:name,
-                        letra:selected1
+                        idCurso:selectedCurso,
+                        idProfesor:selectedProfesor,
+                        grado:name+" "+selected1
                     }
                     )
                     
@@ -181,9 +208,24 @@ function Admin() {
     const handleSubmitAsign = async (e) => {
             try {
                 await instance.post("/asignatura",{
+                    idAsignatura:selectedAsignatura,
                     idCurso:selectedCurso,
+                    idProfesor:selectedProfesor,
                     nombre:name,
                     semestre:selected2
+                }
+                )
+                    
+            } catch (error) {
+                    
+            }
+        }
+    const handleSubmitHorario = async (e) => {
+            try {
+                await instance.post("/horario",{
+                    idAsignatura:selectedAsignatura,
+                    bloque:selectedBloque,
+                    dia: selectedDia,
                 }
                 )
                     
@@ -198,9 +240,13 @@ function Admin() {
             const response = await instance.get("/");
             const response1 = await instance.get("/a");
             const response2 = await instance.get("/e");
+            const response3 = await instance.get("/p");
+            const response4 = await instance.get("/h");
             setCursos(response.data);
             setAsignaturas(response1.data);
             setEstudiantes(response2.data);
+            setProfesores(response3.data);
+            setHorarios(response4.data);
           } catch (err) {}
         };
     
@@ -286,30 +332,6 @@ function Admin() {
                                             <Form.Group controlId="formBasicPassword1">
                                                 <Form.Label>Contraseña</Form.Label>
                                                 <Form.Control onChange={handlePass} />
-                                            </Form.Group>
-                                            <Form.Group>
-                                            <Form.Label>Asignatura</Form.Label>
-                                            <Form.Control as="select" onChange={handleSelectAsignatura}>
-                                                <option value={null}>Mantener</option>
-                                                {asignaturas.map(asignatura =>{
-                                                    return(
-                                                        <option value={asignatura.id} key={asignatura.id}>{asignatura.nombre}</option>
-                                                    )
-                                                })}
-                                                
-                                            </Form.Control>
-                                            </Form.Group>
-                                            <Form.Group>
-                                            <Form.Label>Curso</Form.Label>
-                                            <Form.Control as="select" onChange={handleSelectCurso}>
-                                                <option value={null}>Mantener</option>
-                                                {cursos.map(curso =>{
-                                                    return(
-                                                        <option value={curso.id} key={curso.id}>{curso.grado}</option>
-                                                    )
-                                                })}
-                                                
-                                            </Form.Control>
                                             </Form.Group>
                                             <Form.Group>
                                                 <Form.Label>Registrado</Form.Label>
@@ -398,6 +420,15 @@ function Admin() {
                                     })}
                                                 
                         </Form.Control>
+                        <Form.Label>Profesor</Form.Label>
+                        <Form.Control as="select" onChange={handleSelectProfesor}>
+                            <option value={null}>Escoger Profesor</option>
+                            {profesores.map(profe =>{
+                                return(
+                                    <option value={profe.rut} key={profe.rut}>{profe.nombre} ({profe.rut})</option>)
+                                    })}
+                                                
+                        </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formBasicPassword2">
                                     <Form.Label>Grado</Form.Label>
@@ -441,6 +472,15 @@ function Admin() {
                                     })}
                                                 
                             </Form.Control>
+                            <Form.Label>Profesor</Form.Label>
+                                <Form.Control as="select" onChange={handleSelectProfesor}>
+                                    <option value={null}>Escoger Profesor</option>
+                                    {profesores.map(profe =>{
+                                        return(
+                                            <option value={profe.rut} key={profe.rut}>{profe.nombre} ({profe.rut})</option>)
+                                            })}
+                                                        
+                                </Form.Control>
                             <Form.Label>Curso</Form.Label>
                                         <Form.Control as="select" onChange={handleSelectCurso}>
                                             <option value={null}>Mantener</option>
@@ -476,7 +516,65 @@ function Admin() {
                     </Form.Group>
                              
                     </Form>
+                    
                 </Col>
+                
+                </Col>
+                <Col>
+                <Form>
+                        <Form.Group>
+                            <Form.Label>Asignatura</Form.Label>
+                            <Form.Control as="select" onChange={handleSelectAsignatura}>
+                            <option value={null}>Mantener</option>
+                                {asignaturas.map(asignatura =>{
+                                    return(
+                                    <option value={asignatura.id} key={asignatura.id}>{asignatura.nombre} ({asignatura.id})</option>
+                                            )
+                                    })}
+                                                
+                            </Form.Control>
+                            <Form.Label>Bloque Horario</Form.Label>
+                                            <Form.Control as ="select" onChange={handleSelectBloque}>
+                                                    <option value={null}>Seleccionar Bloque</option>
+                                                    <option value={1}>Bloque 1</option>
+                                                    <option value={2}>Bloque 2</option>
+                                                    <option value={3}>Bloque 3</option>
+                                                    <option value={4}>Bloque 4</option>
+                                                    <option value={5}>Bloque 5</option>
+                                                    <option value={6}>Bloque 6</option>
+                                            </Form.Control>
+                            <Form.Label>Dia</Form.Label>
+                                            <Form.Control as ="select" onChange={handleSelectDia}>
+                                                    <option value={null}>Seleccionar Dia</option>
+                                                    <option value={"Lunes"}>Lunes</option>
+                                                    <option value={"Martes"}>Martes</option>
+                                                    <option value={"Miercoles"}>Miercoles</option>
+                                                    <option value={"Jueves"}>Jueves</option>
+                                                    <option value={"Viernes"}>Viernes</option>
+                                            </Form.Control>
+                                            <br/>
+                                            <Button  variant="primary" type="submit" onClick={handleSubmitHorario}> 
+                                            Add
+                                            </Button>
+                        </Form.Group>
+                    </Form>
+                    <Form>
+                        <Form.Group>
+                                <Form.Label>Horario</Form.Label>
+                                <Form.Control as="select" onChange={handleSelectIdHora}>
+                                <option value={null}>Mantener</option>
+                                    {horarios.map(hora =>{
+                                        return(
+                                        <option value={hora.id} key={hora.id}>id {hora.id}/idA {hora.idAsignatura}/Bloque {hora.bloque}/{hora.dia}</option>
+                                                )
+                                        })}
+                                </Form.Control>
+                                <Button  variant="danger" type="submit" onClick={handleDeleteHorario}>
+                                                        Delete
+                                </Button>
+                                
+                        </Form.Group>
+                    </Form>
                 </Col>
             </Row>
         

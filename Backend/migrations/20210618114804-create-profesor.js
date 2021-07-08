@@ -2,13 +2,9 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Profesors', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
       rut: {
+        allowNull: false,
+        primaryKey: true,
         type: Sequelize.STRING
       },
       nombre: {
@@ -17,13 +13,6 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      idAsignatura: {
-        type: Sequelize.INTEGER,
-        references:{
-            model:"Asignaturas",
-            key:"id"
-        }
-      },
       jefe: {
         type: Sequelize.BOOLEAN
       },
@@ -31,13 +20,8 @@ module.exports = {
         defaultValue: false,
         type: Sequelize.BOOLEAN
       },
-      idCurso: {
-        type: Sequelize.INTEGER,
-        references:{
-            model:"Cursos",
-            key:"id"
-        }
-      },
+      
+      
       
     });
   },

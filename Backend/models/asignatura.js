@@ -14,13 +14,17 @@ module.exports = (sequelize, DataTypes) => {
       Asignatura.belongsTo(models.Curso,{
           foreignKey:"idCurso",
       });
-      Asignatura.hasMany(models.Profesor,{
-          foreignKey:"idAsignatura",
+      Asignatura.belongsTo(models.Profesor,{
+          foreignKey:"idProfesor"
+      });
+      Asignatura.hasMany(models.HorarioAsignatura,{
+          foreignKey:"idAsignatura"
       })
     }
   };
   Asignatura.init({
     idCurso: DataTypes.INTEGER,
+    idProfesor: DataTypes.STRING,
     nombre: DataTypes.STRING,
     semestre: DataTypes.INTEGER
   }, {

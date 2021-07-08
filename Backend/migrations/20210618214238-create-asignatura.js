@@ -16,6 +16,14 @@ module.exports = {
             key:'id'
         }
       },
+      idProfesor: {
+        defaultValue: 1,
+        type: Sequelize.STRING,
+        references:{
+            model:'Profesors',
+            key:'rut'
+        }
+      },
       nombre: {
         type: Sequelize.STRING
       },

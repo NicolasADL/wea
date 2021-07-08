@@ -37,7 +37,7 @@ function Login(){
                         rut :rut,
                         password: pass
                     }).then((data)=> {
-                        dispatch(login(data.data.rut,data.data.nombre,data.data.id,selected,data.data.idCurso));
+                        dispatch(login(data.data.rut,data.data.nombre,selected,data.data.idCurso));
                         localStorage.setItem('token', data.data.token);
                         history.push("/home");
                     })
@@ -52,7 +52,7 @@ function Login(){
                         rut :rut,
                         password: pass
                     }).then((data)=> {
-                        dispatch(login(data.data.rut,data.data.nombre,data.data.id,selected));
+                        dispatch(login(data.data.rut,data.data.nombre,selected));
                         localStorage.setItem('token', data.data.token);
                         history.push("/home");
                     })
@@ -68,7 +68,7 @@ function Login(){
                         rut :rut,
                         password: pass
                     }).then((data)=> {
-                        dispatch(login(data.data.rut,data.data.nombre,data.data.id,selected));
+                        dispatch(login(data.data.rut,data.data.nombre,selected));
                         localStorage.setItem('token', data.data.token);
                         history.push("/home");
                     })
@@ -90,7 +90,7 @@ function Login(){
                     <Col>
     
                 <Form>
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group>
                         <Form.Label>Rut</Form.Label>
                         <InputGroup className="mb-3">
                             <Form.Control onChange={handleRut} />
@@ -109,9 +109,9 @@ function Login(){
                         </InputGroup>
                         
                     </Form.Group>
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group >
                         <Form.Label>Contraseña</Form.Label>
-                        <Form.Control onChange={handlePass} />
+                        <Form.Control type="password" onChange={handlePass} />
                     </Form.Group>
                     <Button onClick={handleSubmit}  variant="primary" type="submit">
                         Submit

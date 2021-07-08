@@ -8,10 +8,15 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      grado: {
-        type: Sequelize.STRING
+      idProfesor:{
+          type: Sequelize.STRING,
+          allowNull:false,
+          references:{
+            model:'Profesors',
+            key:'rut'
+        },
       },
-      letra: {
+      grado: {
         type: Sequelize.STRING
       },
     });

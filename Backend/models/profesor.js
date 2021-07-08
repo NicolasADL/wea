@@ -11,20 +11,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Profesor.belongsTo(models.Asignatura,{
-          foreignKey:"idAsignatura",
-
-      });
+      Profesor.hasMany(models.Asignatura,{
+          foreignKey:"idProfesor"
+      })
+      Profesor.hasOne(models.Curso,{
+          foreignKey:"idProfesor"
+      })
     }
   };
   Profesor.init({
-    rut: DataTypes.STRING,
+    rut: {
+        primaryKey:true,
+        type:DataTypes.STRING
+    },
     nombre: DataTypes.STRING,
     password: DataTypes.STRING,
-    idAsignatura: DataTypes.INTEGER,
     jefe: DataTypes.BOOLEAN,
     registrado: DataTypes.BOOLEAN,
-    idCurso: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Profesor',

@@ -1,5 +1,5 @@
 const router=require("express").Router();
-const {Estudiante,Apoderado,Profesor,Curso,Asignatura} = require("../models");
+const {Estudiante,Apoderado,Profesor,Curso,Asignatura,HorarioAsignatura} = require("../models");
 const bcrypt = require("bcrypt");
 
 
@@ -24,6 +24,22 @@ router.get("/e", async (req,res) => {
     try {
         const allEstudiantes = await Estudiante.findAll();
         res.send(allEstudiantes);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+})
+router.get("/p", async (req,res) => {
+    try {
+        const allProfesors = await Profesor.findAll();
+        res.send(allProfesors);
+    } catch (error) {
+        res.status(400).send('Error query');
+    }
+})
+router.get("/h", async (req,res) => {
+    try {
+        const allHorarios = await HorarioAsignatura.findAll();
+        res.send(allHorarios);
     } catch (error) {
         res.status(400).send('Error query');
     }
@@ -122,8 +138,6 @@ router.post("/profesor", async (req,res) => {
                 {password:req.body.password,
                 nombre:req.body.nombre,
                 registrado:req.body.registrado,
-                idCurso:req.body.idCurso,
-                idAsignatura:req.body.idAsignatura,
                 jefe:req.body.jefe},{
                     where:{
                         rut:req.body.rut
@@ -197,10 +211,22 @@ router.post("/curso/delete", async (req,res) => {
 })
 router.post("/curso", async (req,res) => {
     try {
-        const cur = await Curso.create(req.body);
-        return res.send(cur);
+        const cur = await Curso.findOne({
+            where:{
+                id:req.body.idCurso
+            }
+        })
+        if(!cur){
+            const cur = await Curso.create(req.body);
+            return res.send(cur);
+        }else{
+            const cur = await Curso.update({idProfesor:req.body.idProfesor,grado:req.body.grado},{where:{id:req.body.idCurso}})
+            return res.send(cur)
+        }
+        
+        
     } catch (error) {
-        res.status(400).send('Error query');
+        res.status(400).send(error);
     }
 })
 router.post("/asignatura/delete", async (req,res) => {
@@ -217,10 +243,43 @@ router.post("/asignatura/delete", async (req,res) => {
 })
 router.post("/asignatura", async (req,res) => {
     try {
-        const cur = await Asignatura.create(req.body);
-        return res.send(cur);
+        const cur = await Asignatura.findOne({
+            where:{
+                id:req.body.idAsignatura
+            }
+        })
+        if(!cur){
+            const cur = await Asignatura.create(req.body);
+            return res.send(cur);
+        }else{
+            const cur = await Asignatura.update({idProfesor:req.body.idProfesor,
+                idCurso:req.body.idCurso,
+                nombre:req.body.nombre,
+                semestre:req.body.semestre},{where:{id:req.body.idAsignatura}})
+            return res.send(cur)
+        }
+        
+        
     } catch (error) {
-        res.status(400).send('Error query');
+        res.status(400).send(error);
+    }
+})
+router.post("/horario/delete", async (req,res) => {
+    try {
+        const hor = await HorarioAsignatura.destroy({
+            where:{id:req.body.id}
+        })
+        return res.send(hor)
+    } catch (error) {
+        res.status(400).send(error);
+    }
+})
+router.post("/horario", async (req,res) => {
+    try {
+        const hor = await HorarioAsignatura.create(req.body)
+        return res.send(hor)
+    } catch (error) {
+        res.status(400).send(error);
     }
 })
 

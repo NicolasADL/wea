@@ -2,13 +2,9 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Apoderados', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
       rut: {
+        allowNull: false,
+        primaryKey: true,
         type: Sequelize.STRING
       },
       nombre: {
@@ -22,10 +18,10 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       idEstudiante: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references:{
             model:"Estudiantes",
-            key:"id"
+            key:"rut"
         }
       },
     });

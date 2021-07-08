@@ -17,10 +17,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Apoderado.init({
-    rut: DataTypes.STRING,
+    rut: {
+        primaryKey:true,
+        type:DataTypes.STRING
+    },
     nombre: DataTypes.STRING,
     password: DataTypes.STRING,
-    idEstudiante: DataTypes.INTEGER,
+    idEstudiante: DataTypes.STRING,
     registrado: DataTypes.BOOLEAN,
   }, {
     sequelize,
