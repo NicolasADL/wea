@@ -1,7 +1,7 @@
 export const ACTION_LOGIN = 'ACTION_LOGIN';
 export const ACTION_LOGOUT = 'ACTION_LOGOUT';
 
-export const login = (rut,name,tipo,idCurso) => {
+export const login = (rut,name,tipo,idCurso,idAsignatura) => {
 	return {
 		type: ACTION_LOGIN,
 		payload: {
@@ -9,7 +9,8 @@ export const login = (rut,name,tipo,idCurso) => {
             Name : name,
             Rut : rut,
             tipo : tipo,
-            id_curso: idCurso
+            id_curso: idCurso,
+            id_asignatura:idAsignatura
 
 		},
 	}
@@ -20,6 +21,11 @@ export const logout = () => {
 		type: ACTION_LOGOUT,
 		payload: {
 			isLogged: false,
+            Name : null,
+            Rut : null,
+            tipo : null,
+            id_curso: null,
+            id_asignatura:null
 		},
 	}
 }
