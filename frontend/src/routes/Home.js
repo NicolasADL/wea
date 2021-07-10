@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import Horario from '../components/horario.js';
 import Asignaturas from '../components/asignaturas';
-import axios from 'axios';
 import Navb from '../components/navb';
 
 function Home() {

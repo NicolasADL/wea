@@ -43,7 +43,7 @@ const Asignaturas = (props) => {
         {asignaturas.map(asignatura =>{
             return(
                 <a style={{ cursor: 'pointer' }}  onClick={(e) => handleAsignatura(asignatura.id)} >
-                <Card border="dark" style={{ width: '18rem' }}>
+                <Card key= {asignatura.id} border="dark" style={{ width: '18rem' }}>
                 <Card.Header>Asignatura</Card.Header>
                 <Card.Body>
                 <Card.Title>{asignatura.nombre}</Card.Title>

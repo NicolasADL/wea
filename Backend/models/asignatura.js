@@ -19,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
       });
       Asignatura.hasMany(models.HorarioAsignatura,{
           foreignKey:"idAsignatura"
-      })
+      });
+      Asignatura.hasMany(models.Archivo,{
+        foreignKey:"idAsignatura"
+    })
     }
   };
   Asignatura.init({

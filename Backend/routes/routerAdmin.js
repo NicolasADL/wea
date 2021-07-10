@@ -1,6 +1,7 @@
 const router=require("express").Router();
-const {Estudiante,Apoderado,Profesor,Curso,Asignatura,HorarioAsignatura} = require("../models");
+const {Estudiante,Apoderado,Profesor,Curso,Asignatura,HorarioAsignatura,Archivo} = require("../models");
 const bcrypt = require("bcrypt");
+
 
 
 router.get("/", async (req,res) => {
@@ -280,6 +281,23 @@ router.post("/horario", async (req,res) => {
         return res.send(hor)
     } catch (error) {
         res.status(400).send(error);
+    }
+})
+router.get("/ar", async (req,res) => {
+    try {
+        const allArch = await Archivo.findAll();
+        res.send(allArch);
+    } catch (error) {
+        res.status(400).send('Error query');
+    }
+})
+router.post("/archivo",async (req,res) =>{
+    try {
+        const arch=Archivo.create(req.body)
+        res.send(arch)
+    } catch (error) {
+        res.status(400).send(error)
+        
     }
 })
 

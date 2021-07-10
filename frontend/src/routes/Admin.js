@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react'
-import {Container,Row,Col,Form,InputGroup,Button,Dropdown,DropdownButton} from 'react-bootstrap'
+import {Container,Row,Col,Form,InputGroup,Button,Dropdown,DropdownButton,Image} from 'react-bootstrap'
 import axios from "axios";
 
 function Admin() {
@@ -8,6 +8,7 @@ function Admin() {
       });
     const [selected,setSelected]=useState('Estudiante')
     const [selected1,setSelected1]=useState("A")
+    const [selectedTipo,setSelectedTipo]=useState("Capsula")
     const [selected2,setSelected2]=useState(1)
     const [cursos,setCursos]=useState([])
     const [asignaturas,setAsignaturas]=useState([])
@@ -26,6 +27,8 @@ function Admin() {
     const [selectedIdHora,setSelectedIdHora]=useState(null);
     const [selectedPupilo,setSelectedPupilo]=useState(null);
     const [selectedProfesor,setSelectedProfesor]=useState(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [archivos, setArchivos] = useState([]);//probando
     const handleSelect = (e) =>{
         setSelected(e)
     }
@@ -37,6 +40,9 @@ function Admin() {
     }
     const handleSelectIdHora = (e) =>{
         setSelectedIdHora(e.target.value)
+    }
+    const handleSelectTipo = (e) =>{
+        setSelectedTipo(e.target.value)
     }
 
     const handleSelectAsignatura = (e) =>{
@@ -233,6 +239,19 @@ function Admin() {
                     
             }
         }
+    const handleSubmitArchivo = async (e)=>{
+        try {
+            await instance.post("/archivo",{
+                idAsignatura:selectedAsignatura,
+                archivo:selectedFile.name,
+                tipo:selectedTipo,
+                nombre:name
+
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
     
     useEffect(() => {
         const fetchData = async () => {
@@ -242,11 +261,13 @@ function Admin() {
             const response2 = await instance.get("/e");
             const response3 = await instance.get("/p");
             const response4 = await instance.get("/h");
+            const response5 = await instance.get("/ar");
             setCursos(response.data);
             setAsignaturas(response1.data);
             setEstudiantes(response2.data);
             setProfesores(response3.data);
             setHorarios(response4.data);
+            setArchivos(response5.data);
           } catch (err) {}
         };
     
@@ -569,15 +590,47 @@ function Admin() {
                                                 )
                                         })}
                                 </Form.Control>
+                                <br/>
                                 <Button  variant="danger" type="submit" onClick={handleDeleteHorario}>
                                                         Delete
                                 </Button>
                                 
                         </Form.Group>
                     </Form>
+                    <Form>
+                        <Form.Group>
+                        <Form.Label>Asignatura</Form.Label>
+                            <Form.Control as="select" onChange={handleSelectAsignatura}>
+                            <option value={null}>Mantener</option>
+                                {asignaturas.map(asignatura =>{
+                                    return(
+                                    <option value={asignatura.id} key={asignatura.id}>{asignatura.nombre} ({asignatura.id})</option>
+                                            )
+                                    })}
+                                                
+                            </Form.Control>
+                            <Form.Label>Nombre</Form.Label>
+                            <Form.Control onChange={handleName} />
+                            <Form.Label>Tipo</Form.Label>
+                            <Form.Control as ="select" onChange={handleSelectTipo}>
+                                                    <option value={null}>Tipo de Archivo</option>
+                                                    <option value={"Capsula"}>Capsula</option>
+                                                    <option value={"Ejercicio"}>Ejercicio</option>
+                                                    <option value={"Otro"}>Otro</option>
+                                                    
+                                            </Form.Control>
+                        
+                            <Form.File onChange={(e) => setSelectedFile(e.target.files[0])} id="exampleFormControlFile1" label="Example file input" />
+                        
+                    
+                        <Button  variant="primary" type="submit" onClick={handleSubmitArchivo}> 
+                                            Add
+                        </Button>
+                        </Form.Group>
+                        
+                    </Form>
                 </Col>
             </Row>
-        
             </Container>
         </div>
     )
