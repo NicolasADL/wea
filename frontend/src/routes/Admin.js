@@ -261,13 +261,13 @@ function Admin() {
             const response2 = await instance.get("/e");
             const response3 = await instance.get("/p");
             const response4 = await instance.get("/h");
-            const response5 = await instance.get("/ar");
+            
             setCursos(response.data);
             setAsignaturas(response1.data);
             setEstudiantes(response2.data);
             setProfesores(response3.data);
             setHorarios(response4.data);
-            setArchivos(response5.data);
+            
           } catch (err) {}
         };
     
@@ -620,9 +620,9 @@ function Admin() {
                                                     
                                             </Form.Control>
                         
-                            <Form.File onChange={(e) => setSelectedFile(e.target.files[0])} id="exampleFormControlFile1" label="Example file input" />
+                            <Form.File onChange={(e) => setSelectedFile(e.target.files[0])} id="exampleFormControlFile1" label="Cargar Archivo" />
                         
-                    
+                        <br/>
                         <Button  variant="primary" type="submit" onClick={handleSubmitArchivo}> 
                                             Add
                         </Button>

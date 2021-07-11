@@ -14,18 +14,32 @@ function Home() {
     const id_curso= useSelector((store) => store.authReducer.id_curso);
    
     
-
+    console.log(tipo)
     
     return isLogged ?(
         
-        <Container fluid>
-        <Navb name={name} tipo={tipo} ></Navb>
-        
-        
-            <Container><Horario idCurso={id_curso}></Horario></Container>
+        (() => {
+            switch (tipo) {
+                case 'Estudiante':
+                return(<div>
+                        <Container fluid>
+                            <Navb name={name} tipo={tipo} ></Navb>
+                            
+                            
+                                <Container><Horario idCurso={id_curso}></Horario></Container>
 
-            <Container><Asignaturas idCurso={id_curso}></Asignaturas></Container>
-        </Container>
+                                <Container><Asignaturas idCurso={id_curso}></Asignaturas></Container>
+                            </Container>
+                        </div>) 
+                case 'Profesor':
+                    return(<div><h1>nada</h1></div>)
+                case 'Apoderado':
+                    return(<div><h1>nada</h1></div>)
+                default:
+                    return null   
+            };
+            })()
+        
         
 
     ): (
