@@ -1,6 +1,8 @@
 import React,{useEffect,useState} from 'react';
 import { Table } from 'react-bootstrap';
 import axios from 'axios';
+const dotenv = require("dotenv");
+dotenv.config();
 
 const Horario = (props) => {
     let {idCurso} = props;
@@ -12,8 +14,9 @@ const Horario = (props) => {
     const[bloque4,setBloque4]=useState([])
     const[bloque5,setBloque5]=useState([])
     const[bloque6,setBloque6]=useState([])
+    
     const instance = axios.create({
-        baseURL: 'http://localhost:3000/home'
+        baseURL: process.env.REACT_APP_BACKEND_URL+'/home'
       });
     useEffect(() => {
         const fetchData = async () => {

@@ -1,20 +1,45 @@
 import {Container} from 'react-bootstrap';
-import React, { useState,useEffect } from 'react'
+import React, {useState,useEffect} from 'react'
 import { useSelector } from 'react-redux';
-
-import { Link, Redirect } from 'react-router-dom';
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 import Horario from '../components/horario.js';
 import Asignaturas from '../components/asignaturas';
 import Navb from '../components/navb';
+
+const dotenv = require("dotenv");
+dotenv.config();
 
 function Home() {
     const isLogged = useSelector((store) => store.authReducer.isLogged);
     const name = useSelector((store) => store.authReducer.Name);
     const tipo= useSelector((store) => store.authReducer.tipo);
     const id_curso= useSelector((store) => store.authReducer.id_curso);
-   
+    const rut= useSelector((store) => store.authReducer.Rut);
+    const [IDC,setIDC]=useState()
+    const instance = axios.create({
+        baseURL: process.env.REACT_APP_BACKEND_URL+'/home'
+      });
     
-    console.log(tipo)
+
+    useEffect(() => {
+        const fetchData = async () => {
+        if(tipo==="Apoderado"){
+          try {
+            const response = await instance.post("/apoderado",{
+                id:rut
+            });
+            
+            setIDC(response.data);
+            
+            
+          } catch (err) {}
+        };
+        }
+    
+        fetchData();
+      }, [isLogged]);
+      console.log(IDC)
     
     return isLogged ?(
         
@@ -32,9 +57,22 @@ function Home() {
                             </Container>
                         </div>) 
                 case 'Profesor':
-                    return(<div><h1>nada</h1></div>)
+                    return(<Container fluid>
+                        <Navb name={name} tipo={tipo}></Navb>
+                        <Container><Asignaturas></Asignaturas></Container>
+                    </Container>)
                 case 'Apoderado':
-                    return(<div><h1>nada</h1></div>)
+                    return(<Container fluid>
+                        <Navb name={name} tipo={tipo}></Navb>
+                        {IDC && IDC.map(estudiante =>{
+                                            return(<div key={estudiante.Estudiante.rut}>
+                                                <h1> PUPILO: {estudiante.Estudiante.nombre} {estudiante.Estudiante.rut}</h1>
+                        <Container><Horario idCurso={estudiante.Estudiante.idCurso}></Horario></Container>
+                                    </div>
+                                                    )
+                                                })}
+                        
+                    </Container>)
                 default:
                     return null   
             };

@@ -1,10 +1,11 @@
 import React, {useState,useEffect} from 'react'
 import {Container,Row,Col,Form,InputGroup,Button,Dropdown,DropdownButton,Image} from 'react-bootstrap'
 import axios from "axios";
-
+const dotenv = require("dotenv");
+dotenv.config();
 function Admin() {
     const instance = axios.create({
-        baseURL: 'http://localhost:3000/admin'
+        baseURL: process.env.REACT_APP_BACKEND_URL+'/admin'
       });
     const [selected,setSelected]=useState('Estudiante')
     const [selected1,setSelected1]=useState("A")
@@ -28,7 +29,6 @@ function Admin() {
     const [selectedPupilo,setSelectedPupilo]=useState(null);
     const [selectedProfesor,setSelectedProfesor]=useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
-    const [archivos, setArchivos] = useState([]);//probando
     const handleSelect = (e) =>{
         setSelected(e)
     }
@@ -404,7 +404,7 @@ function Admin() {
                                                 <option value={null}>No Cambiar</option>
                                                 {estudiantes.map(estudiante =>{
                                                     return(
-                                                        <option value={estudiante.id} key={estudiante.id}>{estudiante.id}</option>
+                                                        <option value={estudiante.rut} key={estudiante.rut}>{estudiante.rut} {estudiante.nombre}</option>
                                                     )
                                                 })}
                                                 

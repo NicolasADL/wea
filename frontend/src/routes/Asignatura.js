@@ -5,7 +5,8 @@ import { Redirect } from 'react-router-dom';
 import Navb from '../components/navb';
 import axios from "axios";
 
-
+const dotenv = require("dotenv");
+dotenv.config();    
 function Asignatura() {
     const isLogged = useSelector((store) => store.authReducer.isLogged);
     const id_asignatura= useSelector((store) => store.authReducer.id_asignatura);
@@ -14,9 +15,8 @@ function Asignatura() {
     const [archivos, setArchivos] = useState([]);
     const [ramo, setRamo] = useState("");
     const instance = axios.create({
-        baseURL: 'http://localhost:3000/asignatura'
+        baseURL: process.env.REACT_APP_BACKEND_URL+'/asignatura'
       });
-
 
     useEffect(() => {
         const fetchData = async () => {

@@ -5,9 +5,11 @@ import { login } from '../redux/actions/authActions';
 import axios from "axios";
 import { useHistory,Link } from 'react-router-dom';
 
+const dotenv = require("dotenv");
+dotenv.config();
 
 const instance = axios.create({
-    baseURL: 'http://localhost:3000/'
+    baseURL: process.env.REACT_APP_BACKEND_URL
   });
 
 function Login(){
