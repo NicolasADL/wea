@@ -17,6 +17,28 @@ router.post("/nombre", async (req,res) => {
         res.status(400).send(error);
     }
 })
+router.post("/delete/:id",async(req,res) => {
+    try {
+        await Archivo.destroy({
+            where:{
+                id:req.params.id
+            }
+        })
+        
+    } catch (error) {
+        
+    }
+
+})
+router.post("/archivo",async (req,res) =>{
+    try {
+        const arch=Archivo.create(req.body)
+        res.send(arch)
+    } catch (error) {
+        res.status(400).send(error)
+        
+    }
+})
 
 router.post("/", async (req,res) => {
     try {
