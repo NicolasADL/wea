@@ -4,6 +4,7 @@ import Admin from './routes/Admin';
 import Asignatura from './routes/Asignatura';
 import Home from './routes/Home';
 import Login from './routes/Login';
+import Mensaje from './routes/Mensaje';
 import Registro from './routes/Registro';
 
 const App = () =>{
@@ -16,6 +17,7 @@ const App = () =>{
             <Route exact path="/home" component={Home}/>
             <Route exact path="/admin" component={Admin}/>
             <Route exact path="/asignatura" component={Asignatura}/>
+            <Route exact path="/mensajes" component={Mensaje}/>
 
             </Switch>
         </Router>

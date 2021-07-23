@@ -39,7 +39,10 @@ function Home() {
     
         fetchData();
       }, [isLogged]);
-      console.log(IDC)
+    
+    if(rut==="Jefe UTP"){
+        return(<Redirect to ="/admin"></Redirect>)
+    }
     
     return isLogged ?(
         
@@ -81,6 +84,7 @@ function Home() {
         
 
     ): (
+
         <Redirect to="/login"/>
     )
 }

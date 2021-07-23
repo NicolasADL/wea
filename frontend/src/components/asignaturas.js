@@ -58,7 +58,7 @@ const Asignaturas = (props) => {
         <CardDeck>
         {asignaturas.map(asignatura =>{
             return(
-                <a style={{ cursor: 'pointer' }}  onClick={(e) => handleAsignatura(asignatura.id)} >
+                <a key= {asignatura.id} style={{ cursor: 'pointer' }}  onClick={(e) => handleAsignatura(asignatura.id)} >
                 <Card key= {asignatura.id} border="dark" style={{ width: '18rem' }}>
                 <Card.Header>Asignatura</Card.Header>
                 <Card.Body>

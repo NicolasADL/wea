@@ -2,7 +2,8 @@ import React, {useState} from 'react'
 import {Button, Container,Row,Col,Form,InputGroup,Dropdown,DropdownButton} from 'react-bootstrap'
 import axios from "axios";
 import AuthInput from '../components/rutCheck';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -15,6 +16,7 @@ function Registro(){
     const [pass,setPass]=useState("");
     const [resultados,setResultados] = useState([])
     const [selected,setSelected]=useState('Usuario')
+    const isLogged = useSelector((store) => store.authReducer.isLogged);
     
     const handleSelect = (e) =>{
         setSelected(e)
@@ -98,7 +100,7 @@ function Registro(){
         }
     }
 
-    return (
+    return !isLogged?(
         <div>
             
             <Container>
@@ -144,7 +146,7 @@ function Registro(){
 
         
         </div>
-    )
+    ):(<Redirect to="/home"/>)
 }
 
 export default Registro

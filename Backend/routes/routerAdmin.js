@@ -1,5 +1,5 @@
 const router=require("express").Router();
-const {Estudiante,Apoderado,Profesor,Curso,Asignatura,HorarioAsignatura,Archivo} = require("../models");
+const {Estudiante,Apoderado,Profesor,Curso,Asignatura,HorarioAsignatura,Archivo,Mensaje} = require("../models");
 const bcrypt = require("bcrypt");
 
 
@@ -298,6 +298,16 @@ router.post("/archivo",async (req,res) =>{
     } catch (error) {
         res.status(400).send(error)
         
+    }
+})
+router.post("/enviar", async (req,res) => {
+    try {
+        const mensaje = await Mensaje.create(req.body
+    );
+        res.send(mensaje);
+    } catch (error) {
+        res.status(400).send(error);
+        console.log(error)
     }
 })
 

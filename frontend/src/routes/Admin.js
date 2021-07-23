@@ -1,12 +1,21 @@
 import React, {useState,useEffect} from 'react'
-import {Container,Row,Col,Form,InputGroup,Button,Dropdown,DropdownButton,Image} from 'react-bootstrap'
+import {Container,Row,Col,Form,InputGroup,Button,Dropdown,DropdownButton,Modal} from 'react-bootstrap'
 import axios from "axios";
+import { useSelector } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+import { logout } from '../redux/actions/authActions';
+import { useDispatch } from "react-redux";
 const dotenv = require("dotenv");
 dotenv.config();
+
+
 function Admin() {
     const instance = axios.create({
         baseURL: process.env.REACT_APP_BACKEND_URL+'/admin'
       });
+    const isLogged = useSelector((store) => store.authReducer.isLogged);
+    const ident = useSelector((store) => store.authReducer.Rut);
+    const [show, setShow] = useState(false);
     const [selected,setSelected]=useState('Estudiante')
     const [selected1,setSelected1]=useState("A")
     const [selectedTipo,setSelectedTipo]=useState("Capsula")
@@ -29,6 +38,50 @@ function Admin() {
     const [selectedPupilo,setSelectedPupilo]=useState(null);
     const [selectedProfesor,setSelectedProfesor]=useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
+    const [contenido,setContenido] = useState("")
+    const [asunto,setAsunto] = useState("")
+    const [dest,setDest] = useState([])
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const dispatch = useDispatch()
+    const handleLogout = (e) => {
+        dispatch(logout());
+    }
+    const handleContenido = (e) =>{
+        setContenido(e.target.value)
+        
+    }
+    const handleAsunto = (e) =>{
+        setAsunto(e.target.value)
+        
+    }
+    const handleSubmitMensaje = async (e)=>{
+        try {
+            await instance.post("/enviar",{
+                idSender:"Jefe UTP",
+                idReceiver:dest,
+                asunto:asunto,
+                contenido:contenido,
+                
+
+            })
+            handleClose()
+        } catch (error) {
+            console.log(error)
+        }
+        
+    }
+    const handleSelectDest = (e) =>{
+        if(e.target.value==="Alumnos"){
+            setDest(allEs)
+        }
+        else if(e.target.value==="Profesores"){
+            setDest(allPr)
+        }
+        else if(e.target.value==="Todos"){
+            setDest(allEs.concat(allPr))
+        }
+    }
     const handleSelect = (e) =>{
         setSelected(e)
     }
@@ -270,11 +323,19 @@ function Admin() {
             
           } catch (err) {}
         };
-    
+        
         fetchData();
-      }, []);
+        
+      },[]);
+    var allEs =estudiantes && estudiantes.map(alumno =>{
+        return alumno.rut
+    })
+    var allPr =profesores && profesores.map(profe =>{
+        return profe.rut
+    })
     
-    return (
+    
+    return isLogged && ident==="Jefe UTP"?(
         <div>
             <Container>
             
@@ -629,11 +690,56 @@ function Admin() {
                         </Form.Group>
                         
                     </Form>
+                
                 </Col>
+                
             </Row>
             </Container>
+            <Container style={{padding:"2px"}}> 
+                        <Button variant="primary" onClick={handleShow}>
+                            Nuevo Mensaje
+                        </Button>
+                        <Link to="/login">
+                    <Button style={{marginLeft:"5px"}} variant="danger" type="button" onClick={handleLogout}> LOG OUT </Button>
+                </Link>
+                            
+                        </Container>
+                        
+                        <Modal size ="lg" show={show} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                            <Modal.Title>Enviar Mensaje</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form>
+                            <Form.Label>Destinatario</Form.Label>
+                            <Form.Control as="select" onChange={handleSelectDest}>
+                                <option value={null}>Escoger Destinatario</option>
+                                <option key="2" value="Todos">Todos</option>
+                                <option key="0" value="Alumnos">Alumnos</option>
+                                <option key="1" value="Profesores">Profesores</option>
+
+                            </Form.Control>
+                                        
+                            <Form.Label>Asunto</Form.Label>
+                                <Form.Control  onChange={handleAsunto}/>
+                            <Form.Label>Mensaje</Form.Label>
+                                <Form.Control as="textarea" rows={5} onChange={handleContenido} />
+                            <br/>
+                            <Container style = {{marginLeft:"619px",padding:"2px"}}>
+                            <Button variant="danger" style = {{margin:"5px"}} onClick={handleClose}>
+                                Cerrar
+                            </Button>
+                            <Button type="submit" variant="success" onClick={handleSubmitMensaje}>Enviar</Button>
+                            </Container>
+                            </Form>
+
+                            </Modal.Body>
+                            
+                        </Modal>
+
+                
         </div>
-    )
+    ):(<Redirect to="/home"/>)
 }
 
 export default Admin

@@ -3,7 +3,8 @@ import {Button, Container,Row,Col,Form,InputGroup,DropdownButton,Dropdown } from
 import {useDispatch } from 'react-redux';
 import { login } from '../redux/actions/authActions';
 import axios from "axios";
-import { useHistory,Link } from 'react-router-dom';
+import { useHistory,Link, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -17,6 +18,7 @@ function Login(){
     const [pass,setPass]=useState("");
     const [selected,setSelected]=useState('Usuario')
     const dispatch= useDispatch();
+    const isLogged = useSelector((store) => store.authReducer.isLogged);
     const history= useHistory();
 
     const handleSelect = (e) =>{
@@ -70,7 +72,7 @@ function Login(){
                         rut :rut,
                         password: pass
                     }).then((data)=> {
-                        dispatch(login(data.data.rut,data.data.nombre,selected));
+                        dispatch(login(data.data.rut,data.data.nombre,selected,null,null,data.data.jefe));
                         localStorage.setItem('token', data.data.token);
                         history.push("/home");
                     })
@@ -83,7 +85,7 @@ function Login(){
                 break;
         }
     }
-    return (
+    return !isLogged?(
         <div>
             
             <Container>
@@ -126,7 +128,7 @@ function Login(){
 
         
         </div>
-    )
+    ):(<Redirect to="/home"/>)
 }
 
 export default Login
