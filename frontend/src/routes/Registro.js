@@ -4,7 +4,7 @@ import axios from "axios";
 import AuthInput from '../components/rutCheck';
 import {Link, Redirect} from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+import '../assets/css/styles.css'
 const dotenv = require("dotenv");
 dotenv.config();
 const instance = axios.create({
@@ -101,23 +101,21 @@ function Registro(){
     }
 
     return !isLogged?(
-        <div>
             
-            <Container>
-                <Row>
-                   
-                </Row>
-                <Row>
-                    <Col>
+
+            <Container >
+                
+                
     
-                <Form>
+                <Form className="forma">
                     
 
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Rut</Form.Label>
-                        <InputGroup className="mb-3">
-                            <Form.Control onChange={handleRut} />
+                    <Form.Group className="forma-control" controlId="formBasicPassword">
+                        <Form.Label className="forma-label">Rut</Form.Label>
+                        <InputGroup className="forma-input">
+                            <Form.Control type="rut" placeholder="Ingrese su Rut" className="forma-input" onChange={handleRut} />
                             <DropdownButton
+                            className="forma-input"
                             as={InputGroup.Append}
                             variant="outline-secondary"
                             title={selected}
@@ -134,18 +132,15 @@ function Registro(){
                     </Form.Group>
                     <AuthInput registrado={resultados.registrado} change={handlePass}/>
                     
-                    <Button onClick={handleSubmit} variant="primary" type="submit">
+                    <Button className="btn-submit" onClick={handleSubmit} variant="primary" type="submit">
                         Submit
                     </Button>
-                    <Link to="/login">Ya esta registrado?</Link>
+                    <Link style={{marginLeft:"260px",color:"black",textDecoration:"underline"}}to="/login">Ya esta registrado?</Link>
                     
                 </Form>
-                </Col>
-                </Row>
+                
         </Container>
 
-        
-        </div>
     ):(<Redirect to="/home"/>)
 }
 

@@ -1,11 +1,11 @@
 import React, {useState} from 'react'
-import {Button, Container,Row,Col,Form,InputGroup,DropdownButton,Dropdown } from 'react-bootstrap'
+import {Button, Container,Row,Col,Form,InputGroup,DropdownButton,Dropdown, Alert } from 'react-bootstrap'
 import {useDispatch } from 'react-redux';
 import { login } from '../redux/actions/authActions';
 import axios from "axios";
 import { useHistory,Link, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+import '../assets/css/styles.css'
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -48,6 +48,7 @@ function Login(){
                     
                 } catch (error) {
                     
+                    return(alert("Ha ocurrido un error al iniciar sesion, revise los datos"))
                 }
                 break;
             case "Apoderado":
@@ -62,7 +63,7 @@ function Login(){
                     })
                     
                 } catch (error) {
-                    
+                    return(alert("Ha ocurrido un error al iniciar sesion, revise los datos"))
                 }
                 break;
             case "Profesor":
@@ -78,7 +79,7 @@ function Login(){
                     })
     
                 } catch (error) {
-
+                    return(alert("Ha ocurrido un error al iniciar sesion, revise los datos"))
                 }
                 break;
             default:
@@ -86,19 +87,19 @@ function Login(){
         }
     }
     return !isLogged?(
-        <div>
+        
             
             <Container>
                 
-                <Row>
-                    <Col>
+                
     
-                <Form>
-                    <Form.Group>
-                        <Form.Label>Rut</Form.Label>
+                <Form className="forma">
+                    <Form.Group className="forma-control">
+                        <Form.Label className="forma-label">Rut</Form.Label>
                         <InputGroup className="mb-3">
-                            <Form.Control onChange={handleRut} />
+                            <Form.Control placeholder="Ingrese su Rut" className="forma-input" type="rut" onChange={handleRut} />
                             <DropdownButton
+                            className="forma-input"
                             as={InputGroup.Append}
                             variant="outline-secondary"
                             title={selected}
@@ -112,22 +113,20 @@ function Login(){
                             
                         </InputGroup>
                         
+                    
+                        <Form.Label className="forma-label">Contraseña</Form.Label>
+                        <Form.Control type="password" className="forma-input" placeholder="Ingrese su Contraseña" onChange={handlePass} />
                     </Form.Group>
-                    <Form.Group >
-                        <Form.Label>Contraseña</Form.Label>
-                        <Form.Control type="password" onChange={handlePass} />
-                    </Form.Group>
-                    <Button onClick={handleSubmit}  variant="primary" type="submit">
+                    <Button onClick={handleSubmit}  className="btn-submit" variant="primary" type="submit">
                         Submit
                     </Button>
-                    <Link to="/">Registrarse</Link>
+                    <Link style={{marginLeft:"314px",color:"black",textDecoration:"underline"}} to="/">Registrarse</Link>
                 </Form>
-                </Col>
-                </Row>
+                
         </Container>
 
         
-        </div>
+        
     ):(<Redirect to="/home"/>)
 }
 
