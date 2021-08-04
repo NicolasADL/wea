@@ -54,17 +54,18 @@ const Asignaturas = (props) => {
       
 
     return (
-        <Container>
-        <CardDeck>
+        <Container className="cartas">
+        <CardDeck className="cartas-deck">
         {asignaturas.map(asignatura =>{
             return(
                 <a key= {asignatura.id} style={{ cursor: 'pointer' }}  onClick={(e) => handleAsignatura(asignatura.id)} >
-                <Card key= {asignatura.id} border="dark" style={{ width: '18rem' }}>
-                <Card.Header>Asignatura</Card.Header>
+                <Card key= {asignatura.id} border="dark" >
+                <Card.Header>Asignatura (ID {asignatura.id})</Card.Header>
                 <Card.Body>
                 <Card.Title>{asignatura.nombre}</Card.Title>
                 
                 </Card.Body>
+
             </Card>
             </a>
                     )

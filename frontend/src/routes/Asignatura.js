@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Navb from '../components/navb';
 import axios from "axios";
 import {BsTrash} from 'react-icons/bs';
+import {FaAngleDown} from "react-icons/fa";
 
 const dotenv = require("dotenv");
 dotenv.config();    
@@ -87,43 +88,41 @@ function Asignatura() {
             switch(tipo){
                 case "Estudiante":
                     return(
-                    <Container fluid>
+                    <Container >
                         <Navb name={name} tipo={tipo}></Navb>
-                        <h1 style={{textAlign:'center'}}>{ramo.nombre}</h1>
                         
-                        <Container>
-
-                            <Accordion>
-                                <Card key="0">
+                        
+                        <Container className="box">
+                            <h1>{ramo.nombre}</h1>
+                            <Accordion className="acc">
+                            
                                 
                                 <Accordion.Toggle as={Card.Header} variant="link" key="0" eventKey="0">
-                                    Capsulas
+                                <Row><Col>Capsulas</Col><Col><FaAngleDown className="arrow"/></Col></Row> 
                                 </Accordion.Toggle>
                                 
                                 
                                 {archivos.map(arch =>{if(arch.tipo==="Capsula"){return(<Accordion.Collapse key={arch.id} eventKey="0"><Card.Body key={arch.id}><Row><Col sm={11}><a rel="noreferrer" key={arch.id} href={arch.archivo} target="_blank">{arch.nombre}</a></Col></Row></Card.Body></Accordion.Collapse>)}return null})}
                                 
-                            </Card>
-                            <Card key="1">
+                            
                                 
                                 <Accordion.Toggle as={Card.Header} variant="link" key="1" eventKey="1">
-                                    Ejercicios
+                                <Row><Col>Ejercicios</Col><Col><FaAngleDown className="arrow"/></Col></Row> 
                                 </Accordion.Toggle>
                                 
                                 
                                 {archivos.map(arch =>{if(arch.tipo==="Ejercicio"){return(<Accordion.Collapse key={arch.id} eventKey="1"><Card.Body key={arch.id}><a rel="noreferrer" key={arch.id} href={arch.archivo} target="_blank">{arch.nombre}</a></Card.Body></Accordion.Collapse>)}return null})}
                                 
-                            </Card>
-                            <Card key="2">
+                            
                                
                                 <Accordion.Toggle as={Card.Header} variant="link" key="2" eventKey="2">
-                                    Otros
+                                <Row><Col>Otros</Col><Col><FaAngleDown className="arrow"/></Col></Row> 
                                 </Accordion.Toggle>
                                 
                                 
                                 {archivos.map(arch =>{if(arch.tipo==="Otro"){return(<Accordion.Collapse key={arch.id} eventKey="2"><Card.Body key={arch.id}><a key={arch.id} href={arch.archivo} rel="noreferrer" target="_blank">{arch.nombre}</a></Card.Body></Accordion.Collapse>)}return null})}
                                 
-                            </Card>
+                            
                             
                         
                             </Accordion>
@@ -133,49 +132,49 @@ function Asignatura() {
                     )
                 case "Profesor":
                     return(
-                    <Container fluid>
+                    <Container>
                         <Navb name={name} tipo={tipo}></Navb>
-                        <h1 style={{textAlign:'center'}}>{ramo.nombre}</h1>
                         
-                        <Container>
-
-                            <Accordion >
-                                <Card key="0">
+                        
+                        <Container className="box">
+                            <h1 >{ramo.nombre}</h1>
+                            <Accordion className="acc">
+                                
                                 
                                 <Accordion.Toggle as={Card.Header} variant="link"  eventKey="0">
-                                    Capsulas
+                                    <Row><Col>Capsulas</Col><Col><FaAngleDown className="arrow"/></Col></Row> 
                                 </Accordion.Toggle>
                                 
                                 
                                 {archivos.map(arch =>{if(arch.tipo==="Capsula"){return(<Accordion.Collapse key={arch.id} eventKey="0"><Card.Body ><Row><Col sm={11}><a rel="noreferrer"  href={arch.archivo} target="_blank">{arch.nombre}</a></Col><Col sm={1}><Button type="submit" onClick={e => handleDelete(arch.id)} variant="danger"><BsTrash/></Button></Col></Row></Card.Body></Accordion.Collapse>)}return null})}
                                 
-                            </Card>
-                            <Card key="1"> 
+                            
+                            
                                 
                                 <Accordion.Toggle as={Card.Header} variant="link"  eventKey="1">
-                                    Ejercicios
+                                <Row><Col>Ejercicios</Col><Col><FaAngleDown className="arrow"/></Col></Row> 
                                 </Accordion.Toggle>
                                 
                                 
                                 {archivos.map(arch =>{if(arch.tipo==="Ejercicio"){return(<Accordion.Collapse key={arch.id} eventKey="1"><Card.Body ><Row><Col sm={11}><a rel="noreferrer"  href={arch.archivo} target="_blank">{arch.nombre}</a></Col><Col sm={1}><Button type="submit" onClick={e => handleDelete(arch.id)} variant="danger"><BsTrash/></Button></Col></Row></Card.Body></Accordion.Collapse>)}return null})}
                                 
-                            </Card>
-                            <Card key="2">
+                
+                            
                                 
                                 <Accordion.Toggle as={Card.Header} variant="link" eventKey="2">
-                                    Otros
+                                <Row><Col>Otros</Col><Col><FaAngleDown className="arrow"/></Col></Row> 
                                 </Accordion.Toggle>
                                 
                                 
                                 {archivos.map(arch =>{if(arch.tipo==="Otro"){return(<Accordion.Collapse key={arch.id} eventKey="2"><Card.Body ><Row><Col sm={11}><a rel="noreferrer"  href={arch.archivo} target="_blank">{arch.nombre}</a></Col><Col sm={1}><Button type="submit" onClick={e => handleDelete(arch.id)} variant="danger"><BsTrash/></Button></Col></Row></Card.Body></Accordion.Collapse>)}return null})}
                                 
-                            </Card>
+                    
                             
                         
                             </Accordion>
-                        </Container>
+                        
                         <br/>
-                        <Container>
+                        
                         <Button variant="success" onClick={handleShow}>
                             Subir Archivo
                         </Button>

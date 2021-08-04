@@ -102,8 +102,8 @@ function Registro(){
 
     return !isLogged?(
             
-
-            <Container >
+            <div className="bgr">
+            <Container className="lienzo">
                 
                 
     
@@ -112,12 +112,12 @@ function Registro(){
 
                     <Form.Group className="forma-control" controlId="formBasicPassword">
                         <Form.Label className="forma-label">Rut</Form.Label>
-                        <InputGroup className="forma-input">
+                        <InputGroup >
                             <Form.Control type="rut" placeholder="Ingrese su Rut" className="forma-input" onChange={handleRut} />
                             <DropdownButton
-                            className="forma-input"
+                            className="input-group-dropdown-1"
                             as={InputGroup.Append}
-                            variant="outline-secondary"
+                            variant="dark"
                             title={selected}
                             id="input-group-dropdown-1"
                             onSelect={handleSelect}
@@ -135,11 +135,12 @@ function Registro(){
                     <Button className="btn-submit" onClick={handleSubmit} variant="primary" type="submit">
                         Submit
                     </Button>
-                    <Link style={{marginLeft:"260px",color:"black",textDecoration:"underline"}}to="/login">Ya esta registrado?</Link>
+                    <Link style={{marginLeft:"250px",color:"#F1F2ED",textDecoration:"underline"}}to="/login">Ya esta registrado?</Link>
                     
                 </Form>
                 
         </Container>
+        </div>
 
     ):(<Redirect to="/home"/>)
 }

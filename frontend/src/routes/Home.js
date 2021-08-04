@@ -49,8 +49,8 @@ function Home() {
         (() => {
             switch (tipo) {
                 case 'Estudiante':
-                return(<div>
-                        <Container fluid>
+                return(<div className="lienzo2">
+                        <Container>
                             <Navb name={name} tipo={tipo} ></Navb>
                             
                             
@@ -60,12 +60,12 @@ function Home() {
                             </Container>
                         </div>) 
                 case 'Profesor':
-                    return(<Container fluid>
+                    return(<div className="lienzo3">
                         <Navb name={name} tipo={tipo}></Navb>
-                        <Container><Asignaturas></Asignaturas></Container>
-                    </Container>)
+                        <Asignaturas></Asignaturas>
+                    </div>)
                 case 'Apoderado':
-                    return(<Container fluid>
+                    return(<div className="lienzo2"><Container>
                         <Navb name={name} tipo={tipo}></Navb>
                         {IDC && IDC.map(estudiante =>{
                                             return(<div key={estudiante.Estudiante.rut}>
@@ -75,7 +75,7 @@ function Home() {
                                                     )
                                                 })}
                         
-                    </Container>)
+                    </Container></div>)
                 default:
                     return null   
             };

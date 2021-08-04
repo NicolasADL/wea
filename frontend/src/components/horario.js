@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import { Table } from 'react-bootstrap';
 import axios from 'axios';
+import '../assets/css/styles.css'
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -53,20 +54,20 @@ const Horario = (props) => {
         
       }
     return (
-        <Table striped bordered hover>
+        <Table className="horario" borderless>
             <thead>
                 <tr>
-                <th>Bloque</th>
-                <th>Lunes</th>
-                <th>Martes</th>
-                <th>Miercoles</th>
-                <th>Jueves</th>
-                <th>Viernes</th>
+                <th className="heads">Bloque</th>
+                <th className="heads">Lunes</th>
+                <th className="heads">Martes</th>
+                <th className="heads">Miercoles</th>
+                <th className="heads">Jueves</th>
+                <th className="heads">Viernes</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                <td>1</td>
+                <td className="heads">1</td>
                 <td>{bloque1.map(asignatura =>{if(asignatura.dia==="Lunes"){return asignatura.Asignatura.nombre}return null})}</td>
                 <td>{bloque1.map(asignatura =>{if(asignatura.dia==="Martes"){return asignatura.Asignatura.nombre}return null})}</td>
                 <td>{bloque1.map(asignatura =>{if(asignatura.dia==="Miercoles"){return asignatura.Asignatura.nombre}return null})}</td>
@@ -74,7 +75,7 @@ const Horario = (props) => {
                 <td>{bloque1.map(asignatura =>{if(asignatura.dia==="Viernes"){return asignatura.Asignatura.nombre}return null})}</td>
                 </tr>
                 <tr>
-                <td>2</td>
+                <td className="heads">2</td>
                 <td>{bloque2.map(asignatura =>{if(asignatura.dia==="Lunes"){return asignatura.Asignatura.nombre}return null})}</td>
                 <td>{bloque2.map(asignatura =>{if(asignatura.dia==="Martes"){return asignatura.Asignatura.nombre}return null})}</td>
                 <td>{bloque2.map(asignatura =>{if(asignatura.dia==="Miercoles"){return asignatura.Asignatura.nombre}return null})}</td>
@@ -82,7 +83,7 @@ const Horario = (props) => {
                 <td>{bloque2.map(asignatura =>{if(asignatura.dia==="Viernes"){return asignatura.Asignatura.nombre}return null})}</td>
                 </tr>
                 <tr>
-                <td>3</td>
+                <td className="heads">3</td>
                 <td>{bloque3.map(asignatura =>{if(asignatura.dia==="Lunes"){return asignatura.Asignatura.nombre}return null})}</td>
                 <td>{bloque3.map(asignatura =>{if(asignatura.dia==="Martes"){return asignatura.Asignatura.nombre}return null})}</td>
                 <td>{bloque3.map(asignatura =>{if(asignatura.dia==="Miercoles"){return asignatura.Asignatura.nombre}return null})}</td>
@@ -90,7 +91,7 @@ const Horario = (props) => {
                 <td>{bloque3.map(asignatura =>{if(asignatura.dia==="Viernes"){return asignatura.Asignatura.nombre}return null})}</td>
                 </tr>
                 <tr>
-                <td>4</td>
+                <td className="heads">4</td>
                 <td>{bloque4.map(asignatura =>{if(asignatura.dia==="Lunes"){return asignatura.Asignatura.nombre}return null})}</td>
                 <td>{bloque4.map(asignatura =>{if(asignatura.dia==="Martes"){return asignatura.Asignatura.nombre}return null})}</td>
                 <td>{bloque4.map(asignatura =>{if(asignatura.dia==="Miercoles"){return asignatura.Asignatura.nombre}return null})}</td>
@@ -98,7 +99,7 @@ const Horario = (props) => {
                 <td>{bloque4.map(asignatura =>{if(asignatura.dia==="Viernes"){return asignatura.Asignatura.nombre}return null})}</td>
                 </tr>
                 <tr>
-                <td>5</td>
+                <td className="heads">5</td>
                 <td>{bloque5.map(asignatura =>{if(asignatura.dia==="Lunes"){return asignatura.Asignatura.nombre}return null})}</td>
                 <td>{bloque5.map(asignatura =>{if(asignatura.dia==="Martes"){return asignatura.Asignatura.nombre}return null})}</td>
                 <td>{bloque5.map(asignatura =>{if(asignatura.dia==="Miercoles"){return asignatura.Asignatura.nombre}return null})}</td>
@@ -106,7 +107,7 @@ const Horario = (props) => {
                 <td>{bloque5.map(asignatura =>{if(asignatura.dia==="Viernes"){return asignatura.Asignatura.nombre}return null})}</td>
                 </tr>
                 <tr>
-                <td>6</td>
+                <td className="heads">6</td>
                 <td>{bloque6.map(asignatura =>{if(asignatura.dia==="Lunes"){return asignatura.Asignatura.nombre}return null})}</td>
                 <td>{bloque6.map(asignatura =>{if(asignatura.dia==="Martes"){return asignatura.Asignatura.nombre}return null})}</td>
                 <td>{bloque6.map(asignatura =>{if(asignatura.dia==="Miercoles"){return asignatura.Asignatura.nombre}return null})}</td>

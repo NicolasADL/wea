@@ -87,9 +87,8 @@ function Login(){
         }
     }
     return !isLogged?(
-        
-            
-            <Container>
+            <div className="bgr">
+            <Container className="lienzo">
                 
                 
     
@@ -99,9 +98,9 @@ function Login(){
                         <InputGroup className="mb-3">
                             <Form.Control placeholder="Ingrese su Rut" className="forma-input" type="rut" onChange={handleRut} />
                             <DropdownButton
-                            className="forma-input"
+                            className="input-group-dropdown-1"
                             as={InputGroup.Append}
-                            variant="outline-secondary"
+                            variant="dark"
                             title={selected}
                             id="input-group-dropdown-1"
                             onSelect={handleSelect}
@@ -120,10 +119,11 @@ function Login(){
                     <Button onClick={handleSubmit}  className="btn-submit" variant="primary" type="submit">
                         Submit
                     </Button>
-                    <Link style={{marginLeft:"314px",color:"black",textDecoration:"underline"}} to="/">Registrarse</Link>
+                    <Link style={{marginLeft:"314px",color:"#F1F2ED",textDecoration:"underline"}} to="/">Registrarse</Link>
                 </Form>
                 
         </Container>
+        </div>
 
         
         

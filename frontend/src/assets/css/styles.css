@@ -1,18 +1,43 @@
+@import url(https://fonts.googleapis.com/css?family=Quicksand:300,400,700);
 body {
-    margin:0;
-    align-items: center;
-    padding-top: 10rem;
-    padding-bottom: 40px;
-    background-image: linear-gradient( 70.5deg,  rgba(0,81,80,1) 23.5%, rgba(0,134,132,1) 91.3% );
+    position: relative;
+    font-family: 'quicksand' !important;
+    background-color: #81898f91 !important; ;
+    
+    
     }
-.forma{
+html,body,main {
+        position: relative;
+        height: 100% !important;
+    }
+/*Registro y Login Style */
+.bgr{
+    opacity:0.9;
+    background-image: url("https://noticias.usm.cl/wp-content//uploads/2021/07/San-Joaqu%C3%ADn.jpg") !important;
+    background-size: 1950px 1200px; 
+    background-size: 100%;
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0px;
+    left:0px;
+    z-index:1000;
+}
+.lienzo .forma{
+    
+    position: relative;
     width: 100%;
     max-width: 530px;
     padding: 12px;
-    margin: auto;
-    background-image: radial-gradient( circle 801px at 10.1% 20.1%,  rgba(209,234,205,1) 5.3%, rgba(159,219,233,1) 90% );
+    background-color: #172132f5;
     border-radius: 10px;
+    color: #F1F2ED !important;
     border: 1px solid rgb(7, 3, 3);
+    box-shadow: 5px 5px 5px #172132f5;
+    text-shadow: 0.1px 0.1px;
+    top: 25%
+    
+;
     
 }
 .forma .forma-control{
@@ -22,14 +47,18 @@ body {
     font-size: 16px;
     
     
+    
   
 }
 .forma-label{
     font-weight: 500;
-    font-family: Verdana,sans-serif;
+    
 }
 .forma .forma-input{
     background-image: radial-gradient( circle 905px at 4.9% 85.8%,  rgba(255,243,242,1) 0.1%, rgba(255,247,220,1) 57.6% );
+    box-shadow: 1px 1px 5px rgb(16, 73, 68);
+    
+    
     
 }
 
@@ -38,6 +67,7 @@ input[type=rut]:focus{
     box-shadow: black;
     -webkit-box-shadow: none;
     border-radius: 10px;
+    box-shadow: 1px 1px 5px rgb(16, 73, 68);
     
 }
 input[type=password]:focus{
@@ -45,6 +75,7 @@ input[type=password]:focus{
     box-shadow: black;
     -webkit-box-shadow: none;
     border-radius: 10px;
+    box-shadow: 1px 1px 5px rgb(16, 73, 68);
     
 }
 .forma .btn-submit{
@@ -61,14 +92,282 @@ input[type=password]:focus{
     transition: all 0.2s;
     background-image: radial-gradient( circle 905px at 4.9% 85.8%,  rgba(255,243,242,1) 0.1%, rgba(255,247,220,1) 57.6% );
     margin-left: 7px;
+    box-shadow: 1px 1px 5px rgb(16, 73, 68);
+    text-shadow: 0.2px 0.2px;
 }
 .forma .btn-submit:hover{
     color:bisque;
-    background-image: linear-gradient( 70.5deg,  rgba(0,81,80,1) 23.5%, rgba(0,134,132,1) 91.3% );
+    background-image: linear-gradient( 70.5deg,  #747174 23.5%, #747174 91.3% );
     font-weight:400;
+    box-shadow: 1px 1px 5px #172132f5;
+    text-shadow: 0.2px 0.2px;
 }
 .forma .btn-submit:focus{
     outline: none;
-    box-shadow: none;
-    color:black
+    box-shadow: 1px 1px 5px #172132f5;
+    color:black;
+    text-shadow: 0.2px 0.2px;
 }
+.lienzo{
+    position: absolute;
+    height: 100% !important;
+    width: auto !important;
+    left: 24%;
+    box-shadow: 3px 3px 3px 5px rgba(23, 58, 55, 0.377);
+    background-color:#f1f2ed59 !important;
+}
+.lienzo2{
+    position: absolute;
+    height: 100% !important;
+    width: auto !important;
+    left: 20.3%;
+    box-shadow: 3px 3px 3px 5px rgba(23, 58, 55, 0.377);
+    background-color:#1721323a !important;
+}
+.lienzo3{
+    margin-top: 14rem;
+    position: absolute;
+    height: auto !important;
+    width: auto !important;
+    left: 20.3%;
+    box-shadow: 3px 3px 3px 5px rgba(23, 58, 55, 0.377);
+    background-color:#1721323a !important;
+}
+
+
+/* Horario style*/
+.horario{
+
+    background-color: transparent;
+    margin-top: 125px;
+    border-radius: 6px;
+    text-align: center;
+    border-collapse: separate;
+    border-spacing: 3px !important;
+    color: #F1F2ED !important;
+    
+    
+}
+
+.horario .heads{
+    background-color: #747174;
+    border-radius: 5px !important;
+    box-shadow: 8px 8px 5px #17213233;
+}
+.horario td{
+    box-shadow: 8px 8px 5px #17213241;
+    background-color: #7E7168;
+    border-radius: 5px;
+}
+
+/*Navbar*/
+.navbar{
+    background-color: #172132 !important;
+    box-shadow: 8px 8px 5px #17213241;
+
+}
+.navbar .navbar-brand{
+    display: block;
+    text-transform: uppercase;
+    width: fit-content;
+    border: none;
+    font-size: medium;
+    color:#F1F2ED !important; 
+    padding: 10px;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    background-color: #505b6e5e !important;
+}
+
+.navbar .navbar-brand{
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+.navbar .navbar-brand:after{
+    display: block;
+    position: absolute;
+    margin: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: '.';
+    color: transparent;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    background-color: #7E7168 !important;
+}
+.navbar .navbar-brand:hover:after{
+    animation: circle 1.5s ease-in forwards;
+}
+.navbar .navbar-nav .nav-link {
+    display: block;
+    text-transform: uppercase;
+    width: fit-content;
+    border: none;
+    font-size: medium;
+    color:#F1F2ED !important; 
+    padding: 10px;
+    margin: 3px;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+    background-color: #505b6e5e !important;
+}
+.navbar .navbar-nav .nav-link{
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+.navbar .navbar-nav .nav-link:after{
+    display: block;
+    position: absolute;
+    margin: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: '.';
+    color: transparent;
+    width: 1px;
+    height: 1px;
+    border-radius: 50%;
+    background-color: #7E7168 !important
+}
+.navbar .navbar-nav .nav-link:hover:after{
+    animation: circle 1.5s ease-in forwards;
+}
+
+@keyframes circle {
+    0% {
+      width: 1px;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      height: 1px;
+      z-index: -1;
+      background: #eee;
+      border-radius: 100%;
+    }
+    100% {
+      background: #aaa;
+      height: 5000%;
+      width: 5000%;
+      z-index: -1;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      border-radius: 0;
+    }
+  }
+  /* Asignaturas Cards*/
+  .cartas{
+      padding: 50px;
+      color: #F1F2ED !important;
+      
+  }
+  .cartas .card{
+      width: 15rem;
+      box-shadow:2px 2px 2px 2px rgba(0, 0, 0, 0.616);
+  }
+  .cartas .card-header{
+      background-color: #747174;
+  }
+  .cartas .card-body{
+      background-color: #7E7168;
+  }
+  /* Accordions*/
+  .acc{
+      background-color: #080505;
+  }
+  .box{
+      margin-top: 7rem;
+      position: relative;
+      box-shadow: 3px 3px 3px 5px rgba(23, 58, 55, 0.377);
+      background-color:#1721323a !important;
+      padding: 15px;
+  }
+  .box1{
+    margin-top: 1rem;
+    position: relative;
+    box-shadow: 3px 3px 3px 5px rgba(23, 58, 55, 0.377);
+    background-color:#1721323a !important;
+    padding: 15px;
+}
+  h1{
+      position: relative;
+      text-align: center;
+      padding: 5px;
+      margin-bottom: 5px;
+  }
+  .acc{
+    background-color: transparent;
+  } 
+  .acc .card {
+    box-shadow: 0px 13px 23px -13px rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0, .4);
+    
+  }
+  .acc .card-header {
+    background-color: rgba(0,0,0, .4);
+    color: #ffddcc;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: left;
+    line-height: 2;
+    font-weight: lighter;
+    position: relative;
+    
+    border-radius: 4px;
+    margin-top: 2px;
+    transition: all .2s ease-in;
+  }
+  
+  .acc .card-header:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0, .5);
+  }
+  
+  .acc .card-header:active {
+    background-color: rgba(0, 0, 0, .55);
+  }
+  a{
+      color:#F1F2ED !important;
+  }
+  .acc .card-body {
+    background-color: rgba(0, 0, 0, 0.301);
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+    text-align: left;
+    color:#F1F2ED !important;
+    overflow-wrap: break-word;
+  }
+  
+  .arrow {
+    position: relative;
+    font-size: 20px;
+    color: rgba(255,255,255, .5);
+    margin-left: 95%;
+  }
+  
+  .box1 .btn{
+    background-color: #172132 !important;
+    border-color: #080505;
+    box-shadow: 1px 1px 1px #080505;
+
+  }
+  .box .btn{
+    background-color: #172132 !important;
+    border-color: #080505;
+    box-shadow: 1px 1px 1px #080505;
+
+  }
+  .input-group-dropdown-1 a{
+      color: #080505 !important;
+  }

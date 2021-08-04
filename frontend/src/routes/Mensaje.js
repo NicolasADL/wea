@@ -220,31 +220,18 @@ function Mensaje() {
                 case "Profesor":
                     return(
                         
-                        <Container fluid>
+                        <Container className="cosa">
                             
                             
                             <Navb name={name} tipo={tipo}></Navb>
-                        <Container>
-                                <h1>MENSAJES ENVIADOS</h1>
-                                <Accordion>
-                                    {enviado && enviado.map(msj =>{return(<Card key={msj.id}>
-                                                                            <Accordion.Toggle as={Card.Header}  eventKey={msj.id}>
-                                                                            <Row><Col sm={9}>Asunto: {msj.asunto}</Col> <Col>Enviado Por: {msj.idSender}</Col></Row>
-                                                                            </Accordion.Toggle>
-                                                                            <Accordion.Collapse eventKey={msj.id}>
-                                                                            <Card.Body>{msj.contenido}</Card.Body>
-                                                                            
-                                                                            </Accordion.Collapse>
-                                                                        </Card>)})}
-                                </Accordion>
-                        </Container>
+                        
                         
                             
                             
-                        <Container>
+                        <Container className="box">
                                 <h1>MENSAJES RECIBIDOS</h1>
-                                <Accordion>
-                                    {mensaje && mensaje.map(msj =>{return(<Card key={msj.id}>
+                                <Accordion className="acc">
+                                    {mensaje && mensaje.map(msj =>{return(<div>
                                                                             <Accordion.Toggle as={Card.Header}  eventKey={msj.id}>
                                                                             <Row><Col sm={9}>Asunto: {msj.asunto}</Col> <Col>Enviado Por: {msj.idSender}</Col></Row>
                                                                             </Accordion.Toggle>
@@ -252,16 +239,31 @@ function Mensaje() {
                                                                             <Card.Body>{msj.contenido}</Card.Body>
                                                                             
                                                                             </Accordion.Collapse>
-                                                                        </Card>)})}
+                                                                        </div>)})}
                                 </Accordion>
                             </Container>
-                            <br/>
-                        <Container>
+                            
+                            <Container className="box1">
+                                <h1>MENSAJES ENVIADOS</h1>
+                                <Accordion className="acc">
+                                    {enviado && enviado.map(msj =>{return(<div>
+                                                                            <Accordion.Toggle as={Card.Header}  eventKey={msj.id}>
+                                                                            <Row><Col sm={9}>Asunto: {msj.asunto}</Col> <Col>Enviado Por: {msj.idSender}</Col></Row>
+                                                                            </Accordion.Toggle>
+                                                                            <Accordion.Collapse eventKey={msj.id}>
+                                                                            <Card.Body>{msj.contenido}</Card.Body>
+                                                                            
+                                                                            </Accordion.Collapse>
+                                                                        </div>)})}
+                                </Accordion>
+                                <br/>
                         <Button variant="primary" onClick={handleShow}>
                             Nuevo Mensaje
                         </Button>
-                            
                         </Container>
+                        
+                            
+                        
                         
                         <Modal size ="lg" show={show} onHide={handleClose}>
                             <Modal.Header closeButton>
@@ -292,31 +294,32 @@ function Mensaje() {
                         </Container>
                         )
                 case "Estudiante":
-                    return(<Container fluid>
+                    return(<Container>
                             <Navb name={name} tipo={tipo}></Navb>
-                            <Container>
+                            <Container className="box">
                                 <h1>MENSAJES RECIBIDOS</h1>
-                                <Accordion>
-                                    {mensaje && mensaje.map(msj =>{return(<Card key={msj.id}>
+                                <Accordion className="acc">
+                                    {mensaje && mensaje.map(msj =>{return(<div>
                                                                             <Accordion.Toggle as={Card.Header}  eventKey={msj.id}>
-                                                                            <Row><Col sm={9}>Asunto: {msj.asunto}</Col> <Col>Enviado Por: {msj.idSender}</Col></Row>
+                                                                            <Row><Col sm={9}>Asunto : {msj.asunto}</Col> <Col>Enviado Por: {msj.idSender}</Col></Row>
                                                                             </Accordion.Toggle>
                                                                             <Accordion.Collapse eventKey={msj.id}>
                                                                             <Card.Body>{msj.contenido}</Card.Body>
                                                                             
                                                                             </Accordion.Collapse>
-                                                                        </Card>)})}
+                                                                            </div>
+                                                                        )})}
                                 </Accordion>
                             </Container>
                         
                             </Container>)
                 case "Apoderado":
-                    return(<Container fluid>
+                    return(<Container>
                             <Navb name={name} tipo={tipo}></Navb>
-                            <Container>
+                            <Container className="box">
                                 <h1>MENSAJES RECIBIDOS</h1>
-                                <Accordion>
-                                    {mensaje && mensaje.map(msj =>{return(<Card key={msj.id}>
+                                <Accordion className="acc">
+                                    {mensaje && mensaje.map(msj =>{return(<div>
                                                                             <Accordion.Toggle as={Card.Header}  eventKey={msj.id}>
                                                                             <Row><Col sm={9}>Asunto: {msj.asunto}</Col> <Col>Enviado Por: {msj.idSender}</Col></Row>
                                                                             </Accordion.Toggle>
@@ -324,7 +327,7 @@ function Mensaje() {
                                                                             <Card.Body>{msj.contenido}</Card.Body>
                                                                             
                                                                             </Accordion.Collapse>
-                                                                        </Card>)})}
+                                                                        </div>)})}
                                 </Accordion>
                             </Container>
                         

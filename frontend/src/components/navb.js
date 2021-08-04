@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from '../redux/actions/authActions';
 
-
+import '../assets/css/styles.css'
 const Navb = (props)=> {
     let {name}=props;
     let {tipo}=props;
@@ -13,8 +13,8 @@ const Navb = (props)=> {
         dispatch(logout());
     }
     return(
-        <Container style= {{padding : "30px"}}>
-    <Navbar  fixed="top" bg="dark" variant="dark">
+            <Container >
+            <Navbar  fixed="top" >
             <Navbar.Brand href="/home">Bienvenido {name}, {tipo}</Navbar.Brand>
             
             <Nav className="mr-auto">
@@ -30,6 +30,7 @@ const Navb = (props)=> {
             
             </Navbar>
             </Container>
+           
     )
 }
 
