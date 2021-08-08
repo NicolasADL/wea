@@ -65,12 +65,12 @@ function Home() {
                         <Asignaturas></Asignaturas>
                     </div>)
                 case 'Apoderado':
-                    return(<div className="lienzo2"><Container>
+                    return(<div className="lienzo3"><Container >
                         <Navb name={name} tipo={tipo}></Navb>
                         {IDC && IDC.map(estudiante =>{
-                                            return(<div key={estudiante.Estudiante.rut}>
-                                                <h1> PUPILO: {estudiante.Estudiante.nombre} {estudiante.Estudiante.rut}</h1>
-                        <Container><Horario idCurso={estudiante.Estudiante.idCurso}></Horario></Container>
+                                            return(<div  key={estudiante.Estudiante.rut}>
+                                                <h2 style={{padding:"10px",marginBottom:"-100px"}}> PUPILO: {estudiante.Estudiante.nombre} {estudiante.Estudiante.rut}</h2>
+                        <Horario idCurso={estudiante.Estudiante.idCurso}></Horario>
                                     </div>
                                                     )
                                                 })}

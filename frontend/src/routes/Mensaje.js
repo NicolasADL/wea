@@ -24,6 +24,7 @@ function Mensaje() {
     const [dest1,setDest1] = useState([])
     const [contenido,setContenido] = useState("")
     const [asunto,setAsunto] = useState("")
+    
     var crs =alumnos && alumnos.map(alumno =>{
         return alumno.rut
     })
@@ -31,9 +32,6 @@ function Mensaje() {
         return alumno.Apoderado.rut
     })
     var crs2 = crs.concat(crs1)
-    
-    
-    
     const instance = axios.create({
         baseURL: process.env.REACT_APP_BACKEND_URL+'/mensaje'
       });
@@ -210,7 +208,7 @@ function Mensaje() {
     
         fetchData();
     
-      }, [curso,dest]);
+      }, [dest,curso]);
     if(rut==="Jefe UTP"){
         return(<Redirect to ="/admin"></Redirect>)
     }

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Navb from '../components/navb';
 import axios from "axios";
-import {BsTrash} from 'react-icons/bs';
+import {BsTrash,BsDownload} from 'react-icons/bs';
 import {FaAngleDown} from "react-icons/fa";
 
 const dotenv = require("dotenv");
@@ -102,7 +102,7 @@ function Asignatura() {
                                 </Accordion.Toggle>
                                 
                                 
-                                {archivos.map(arch =>{if(arch.tipo==="Capsula"){return(<Accordion.Collapse key={arch.id} eventKey="0"><Card.Body key={arch.id}><Row><Col sm={11}><a rel="noreferrer" key={arch.id} href={arch.archivo} target="_blank">{arch.nombre}</a></Col></Row></Card.Body></Accordion.Collapse>)}return null})}
+                                {archivos.map(arch =>{if(arch.tipo==="Capsula"){return(<Accordion.Collapse key={arch.id} eventKey="0"><Card.Body key={arch.id}><Row><Col sm={11}><a rel="noreferrer" key={arch.id} href={arch.archivo} target="_blank">{arch.nombre}</a></Col><Col sm={1}><a key={arch.id} href={arch.archivo} download><BsDownload/></a></Col></Row></Card.Body></Accordion.Collapse>)}return null})}
                                 
                             
                                 
@@ -111,7 +111,7 @@ function Asignatura() {
                                 </Accordion.Toggle>
                                 
                                 
-                                {archivos.map(arch =>{if(arch.tipo==="Ejercicio"){return(<Accordion.Collapse key={arch.id} eventKey="1"><Card.Body key={arch.id}><a rel="noreferrer" key={arch.id} href={arch.archivo} target="_blank">{arch.nombre}</a></Card.Body></Accordion.Collapse>)}return null})}
+                                {archivos.map(arch =>{if(arch.tipo==="Ejercicio"){return(<Accordion.Collapse key={arch.id} eventKey="1"><Card.Body key={arch.id}><Row><Col sm={11}><a rel="noreferrer" key={arch.id} href={arch.archivo} target="_blank">{arch.nombre}</a></Col><Col sm={1}><a key={arch.id} href={arch.archivo} download><BsDownload/></a></Col></Row></Card.Body></Accordion.Collapse>)}return null})}
                                 
                             
                                
@@ -120,7 +120,7 @@ function Asignatura() {
                                 </Accordion.Toggle>
                                 
                                 
-                                {archivos.map(arch =>{if(arch.tipo==="Otro"){return(<Accordion.Collapse key={arch.id} eventKey="2"><Card.Body key={arch.id}><a key={arch.id} href={arch.archivo} rel="noreferrer" target="_blank">{arch.nombre}</a></Card.Body></Accordion.Collapse>)}return null})}
+                                {archivos.map(arch =>{if(arch.tipo==="Otro"){return(<Accordion.Collapse key={arch.id} eventKey="2"><Card.Body key={arch.id}><Row><Col sm={11}><a rel="noreferrer" key={arch.id} href={arch.archivo} target="_blank">{arch.nombre}</a></Col><Col sm={1}><a key={arch.id} href={arch.archivo} download><BsDownload/></a></Col></Row></Card.Body></Accordion.Collapse>)}return null})}
                                 
                             
                             

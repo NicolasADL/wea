@@ -38,11 +38,11 @@ router.post("/asignaturas/horario", async (req,res) => {
             include:{
             model: Asignatura,
             attributes:['nombre'],
-            },
-        },{
             where:{
                 idCurso:req.body.id
             },
+            },
+        },{
             order:[[HorarioAsignatura,'dia','ASC']]
         });
         res.send(datos);
